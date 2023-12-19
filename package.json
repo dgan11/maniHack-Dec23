@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@ethersproject/abi": "^5.7.0",
+    "@ethersproject/bignumber": "^5.7.0",
     "@headlessui/react": "^1.6.3",
     "@heroicons/react": "^1.0.6",
     "@manifoldxyz/contract-abis": "^1.0.0",

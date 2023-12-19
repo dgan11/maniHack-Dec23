@@ -1,5 +1,5 @@
 import { FieldInput, Step, validateAsset } from '@manifoldxyz/studio-app-sdk-react';
-import { schema } from '@/schema_basic';
+import { schema } from '@/schema';
 
 export function UploadTokenStep() {
   return (

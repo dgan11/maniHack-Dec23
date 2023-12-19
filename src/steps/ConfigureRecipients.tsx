@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { FormFieldInput, useField, useForm, useSession } from '@manifoldxyz/studio-app-sdk-react';
 import { SingleMintStep } from '@/common/types';
-import { schema } from '@/schema_basic';
+import { schema } from '@/schema';
 
-function AirdropField({ spec }: { spec: string }) {
+export function AirdropField({ spec }: { spec: string }) {
   if (!spec || (spec !== 'erc721' && spec !== 'erc1155')) {
     throw new Error('Unrecognised contract spec ' + spec);
   }
@@ -39,7 +39,7 @@ function AirdropField({ spec }: { spec: string }) {
   );
 }
 
-function ConfigureRecipients() {
+export function ConfigureRecipients() {
   const currentContract = useField(schema.fields.contract);
   const erc721Form = useForm(schema.fields.erc721MintArgs);
   const erc1155Form = useForm(schema.fields.erc1155MintArgs);
@@ -100,36 +100,37 @@ function ConfigureRecipients() {
 }
 
 // TODO(jaxon): continue here
-const configureRecipientsStep: SingleMintStep = {
+export const configureRecipientsStep: SingleMintStep = {
   Component: ConfigureRecipients,
   description: 'Configure Recipients',
   label: 'Mint Recipient',
   title: 'Configure Recipients',
-  validate: async (data) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  validate: async (data: any) => {
     if (!data.contract) {
       return {
         error: 'Please ensure a contract is selected.',
-        status: false,
+        valid: false,
       };
     }
     if (data.contract.spec === 'erc1155') {
       if (!data.erc1155MintArgs?.recipients?.length) {
         return {
           error: 'Please specify recipients.',
-          status: false,
+          valid: false,
         };
       }
       if (!data.erc1155MintArgs?.amounts?.length) {
         return {
           error: 'Please specify amounts.',
-          status: false,
+          valid: false,
         };
       }
 
       if (data.erc1155MintArgs.recipients.length !== data.erc1155MintArgs.amounts.length) {
         return {
           error: 'Please ensure each recipient has an entered amount.',
-          status: false,
+          valid: false,
         };
       }
     }
@@ -137,14 +138,14 @@ const configureRecipientsStep: SingleMintStep = {
       if (!data.erc721MintArgs?.recipient?.length) {
         return {
           error: 'Please select a recipient.',
-          status: false,
+          valid: false,
         };
       }
     }
     // TODO: actually validate addresses; amounts
     return {
       error: '',
-      status: true,
+      valid: true,
     };
   },
 };

@@ -5,7 +5,7 @@ import { Asset, Network, StudioContractSpec } from '@manifoldxyz/studio-app-sdk'
 import { isTestnet } from '@/common/functions';
 import { AssetClient } from './AssetClient';
 
-function parseMintLogs(
+export function parseMintLogs(
   { mintSpec, walletIsContract }: { mintSpec: StudioContractSpec; walletIsContract: boolean },
   logs: TransactionReceipt['logs'],
 ): string[] {
@@ -94,15 +94,5 @@ export async function postAssetMint(
   // Notify to discord webhook
   if (!isTestnet(chainId)) {
     console.log('TODO: notify to discord webhook');
-    //   try {
-    //     await DiscordAPIClient.notifyOnMinted(
-    //       chainId,
-    //       contractAddress,
-    //       singleTokenId,
-    //       mintSpec.toLowerCase(),
-    //     );
-    //   } catch (e) {
-    //     console.error(e);
-    //   }
   }
 }

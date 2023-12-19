@@ -2,12 +2,7 @@ import { StudioApp, StudioAppProps } from '@manifoldxyz/studio-app-sdk-react';
 import { mintToken } from './jobs/mintToken';
 import { schema } from './schema';
 import configureRecipientsStep from './steps/ConfigureRecipients';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import prepareSingleTokenStep from './steps/PrepareSingleToken';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import selectContractStep from './steps/SelectContractStep';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import uploadTokenStep from './steps/UploadTokenStep';
 
 const singleMintArgs: StudioAppProps<typeof schema.fields> = {
   instanceSchema: schema,

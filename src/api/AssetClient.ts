@@ -2,6 +2,7 @@ import { ASSET_UPLOADER_STUDIO_CLIENT_ID, Network } from '@manifoldxyz/studio-ap
 
 export class AssetClient {
   private static baseUrl = `https://studio.api.manifoldxyz.dev/asset_uploader/${ASSET_UPLOADER_STUDIO_CLIENT_ID}`;
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
   public static async saveMintedTokenId(tokenId: string, networkId: Network, assetId: number) {
     const body = {

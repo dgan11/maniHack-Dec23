@@ -1,9 +1,9 @@
 import { Step, validateAsset } from '@manifoldxyz/studio-app-sdk-react';
-import { schema } from '@/schema_basic';
+import { schema } from '@/schema';
 import { SelectContractStep } from './SelectContractStep';
 import { UploadTokenStep } from './UploadTokenStep';
 
-function PrepareSingleToken() {
+export function PrepareSingleToken() {
   return (
     <div className="flex flex-col gap-2 p-4">
       <UploadTokenStep />
@@ -48,7 +48,7 @@ const prepareSingleTokenStep: Step<typeof schema.fields> = {
 
     return {
       error: errorMessage,
-      status: !errors.length,
+      valid: !errors.length,
     };
   },
 };

@@ -1,7 +1,6 @@
 import { BigNumber } from '@ethersproject/bignumber';
 import { ERC721CreatorABI, ERC1155CreatorABI } from '@manifoldxyz/contract-abis';
-import { Job, JobProgress, Network, StudioContractSpec, Task } from '@manifoldxyz/studio-app-sdk';
-import { postAssetMint } from '@/api/postMint';
+import { Job, JobProgress, Network, Task } from '@manifoldxyz/studio-app-sdk';
 import { SingleMintInstance } from '@/common/types';
 
 interface BaseMintArgs {
@@ -27,17 +26,17 @@ interface NewERC1155MintArgs extends BaseMintArgs {
   uris: [string, ...string[]];
 }
 
-function createMintERC721Task({
+export function createMintERC721Task({
   contractAddress,
   network,
   recipient,
   uri,
 }: NewERC721MintArgs): Task {
   return {
-    adminCheck: {
-      contractSpec: 'erc721',
-      creatorContractAddress: contractAddress,
-    },
+    // adminCheck: {
+    //   contractSpec: 'erc721',
+    //   creatorContractAddress: contractAddress,
+    // },
     description: 'Mint a new ERC-721 token',
     inputs: {
       abi: ERC721CreatorABI,
@@ -54,7 +53,7 @@ function createMintERC721Task({
   };
 }
 
-function createMintERC1155Task({
+export function createMintERC1155Task({
   contractAddress,
   amounts,
   recipients,
@@ -111,9 +110,6 @@ export function mintToken(
   if (!data.tokenAsset.id) {
     throw new Error('Make sure that the token asset is uploaded.');
   }
-
-  const network = data.network;
-  const tokenAsset = data.tokenAsset;
 
   let recipients: [string, ...string[]];
   let amounts: [number, ...number[]];
@@ -191,28 +187,28 @@ export function mintToken(
     identifier: 'token-mint',
     onProgress: (progress: JobProgress) => {
       console.log('progress', progress);
-      if (progress.stage === 'complete-task') {
-        if (progress.task.ref === 'mintNewToken721') {
-          console.log('minted 721 token', progress.result);
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const { events, output } = progress.result as any;
-          // output = tx receipt
-          console.log('events', events, 'output', output);
-          postAssetMint(
-            {
-              asset: tokenAsset,
-              chainId: network,
-              // TODO: somehow get the contract address from the task output
-              contractAddress: '',
-              mintSpec: StudioContractSpec.ERC721,
-              walletIsContract: false,
-            },
-            output,
-          );
-        } else if (progress.task.ref === 'mintNewToken1155') {
-          console.log('minted 1155 token', progress.result);
-        }
-      }
+      // if (progress.stage === 'complete-task') {
+      //   if (progress.task.ref === 'mintNewToken721') {
+      //     console.log('minted 721 token', progress.result);
+      //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      //     const { events, output } = progress.result as any;
+      //     // output = tx receipt
+      //     console.log('events', events, 'output', output);
+      //     postAssetMint(
+      //       {
+      //         asset: tokenAsset,
+      //         chainId: network,
+      //         // TODO: somehow get the contract address from the task output
+      //         contractAddress: '',
+      //         mintSpec: StudioContractSpec.ERC721,
+      //         walletIsContract: false,
+      //       },
+      //       output,
+      //     );
+      //   } else if (progress.task.ref === 'mintNewToken1155') {
+      //     console.log('minted 1155 token', progress.result);
+      //   }
+      // }
     },
     tasks: [assetUploadTask, studioContractDeployTask, mintTokenTask],
     title: 'Mint Token',
