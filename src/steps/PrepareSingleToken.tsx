@@ -1,5 +1,6 @@
 import { Step, validateAsset } from '@manifoldxyz/studio-app-sdk-react';
 import { schema } from '@/schema';
+import { SelectAudienceStep } from './SelectAudienceStep';
 import { SelectContractStep } from './SelectContractStep';
 import { UploadTokenStep } from './UploadTokenStep';
 
@@ -8,6 +9,7 @@ export function PrepareSingleToken() {
     <div className="flex flex-col gap-2 p-4">
       <UploadTokenStep />
       <SelectContractStep />
+      <SelectAudienceStep />
     </div>
   );
 }

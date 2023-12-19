@@ -25,4 +25,6 @@ export const schema = new InstanceSchema({
     isImmutable: false,
     isPublic: true,
   }),
+
+  audience: f.AudienceBlueprint(),
 });
