@@ -1,0 +1,65 @@
+name: Release to staging
+on:
+  workflow_dispatch: {}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+
+      # - name: Set Node to v18
+      #   uses: actions/setup-node@v2
+      #   with:
+      #     node-version: "18"
+
+      # - name: Install dependencies
+      #   run: |
+      #     echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+      #     yarn install
+      #   env:
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # - name: Install infra dependencies
+      #   run: |
+      #     echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+      #     yarn install
+      #   working-directory: ./infra
+      #   env:
+      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # - name: Build
+      #   run: yarn build
+      #   env:
+      #     NODE_OPTIONS: '--max-old-space-size=4096'
+
+      # - name: Build infra
+      #   working-directory: infra/
+      #   run: yarn build
+
+      # - name: Install cdk globally
+      #   run: yarn global add aws-cdk
+
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_ACCESS_KEY_SECRET }}
+      #     aws-region: us-east-1
+
+      # # - name: Deploy package
+      # #   working-directory: infra/
+      # #   run: cdk deploy StudioAppArtistProofStagingWebsite --require-approval never
+      # #   env:
+      # #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # - name: Push Release Files to Root Directory in S3 Bucket
+      #   run: aws s3 cp dist/ s3://studioappartistproofstag-studioappartistproofstag-1thw9zkpp39us/ --recursive
+
+      # - name: Invalidate the CloudFront distro in front of the bucket
+      #   run: aws cloudfront create-invalidation --distribution-id EN59OBLMQMH7W --paths '/*'
+
