@@ -21,6 +21,6 @@ export default defineConfig({
     viteTsconfigPaths(),
   ],
   server: {
-    port: 5172,
+    port: 5173,
   },
 });

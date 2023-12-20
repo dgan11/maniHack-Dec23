@@ -6,6 +6,10 @@ export const schema = new InstanceSchema({
     specs: [StudioContractSpec.ERC721, StudioContractSpec.ERC1155],
   }),
 
+  loyalCollectorsArgs: f.Form({
+    collectors: f.AudienceAllowlist(),
+  }),
+
   erc1155MintArgs: f.Form({
     amounts: f.Array(f.Number()),
     // TODO: change to address when available

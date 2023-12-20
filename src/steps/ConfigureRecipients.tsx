@@ -9,6 +9,10 @@ export function AirdropField({ spec }: { spec: string }) {
   }
 
   const is721 = spec === 'erc721';
+  const session = useSession();
+  // const sdk = new StudioAppSDK();
+  // const collectors = sdk.fetchCreatorCollectors();
+  // console.log('collectors', collectors);
 
   if (is721) {
     return (
@@ -28,12 +32,12 @@ export function AirdropField({ spec }: { spec: string }) {
   return (
     <label className="flex flex-col text-sm">
       Configure recipients
-      {/* <FormFieldInput
-      defaultValue={session.creator?.address}
-      field={schema.fields.erc1155MintArgs.fields.recipients}
-      formSchema={schema.fields.erc1155MintArgs}
-      fieldKey="recipients"
-    /> */}
+      <FormFieldInput
+        defaultValue={session.creator?.address}
+        field={schema.fields.erc1155MintArgs.fields.recipients}
+        formSchema={schema.fields.erc1155MintArgs}
+        fieldKey="recipients"
+      />
       TODO: some input form here
     </label>
   );

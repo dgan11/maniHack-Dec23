@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { StudioApp, StudioAppProps } from '@manifoldxyz/studio-app-sdk-react';
 import { mintToken } from './jobs/mintToken';
 import { schema } from './schema';
-import { configureRecipientsStep } from './steps/ConfigureRecipients';
+import prepareAudienceStep from './steps/PrepareAudience';
 import prepareSingleTokenStep from './steps/PrepareSingleToken';
 
 /**
@@ -37,7 +37,7 @@ const singleMintArgs: StudioAppProps<typeof schema.fields> = {
       console.log('minted');
     },
   },
-  steps: [prepareSingleTokenStep, configureRecipientsStep],
+  steps: [prepareSingleTokenStep, prepareAudienceStep],
 };
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
