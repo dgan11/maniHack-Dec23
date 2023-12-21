@@ -26,7 +26,7 @@
     "@manifoldxyz/studio-app-cli": "^1.0.0-beta.0",
     "@manifoldxyz/studio-app-common": "^1.0.0-beta.0",
     "@manifoldxyz/studio-app-sdk": "^3.0.0-beta.0",
-    "@manifoldxyz/studio-app-sdk-react": "^3.0.0-beta.1",
+    "@manifoldxyz/studio-app-sdk-react": "^3.0.0-beta.4",
     "@sentry/integrations": "^7.42.0",
     "@sentry/react": "^7.42.0",
     "@tippyjs/react": "^4.2.6",

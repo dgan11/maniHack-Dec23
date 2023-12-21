@@ -1,28 +1,28 @@
-import { f, InstanceSchema, StudioContractSpec } from '@manifoldxyz/studio-app-sdk';
+import { f, InstanceSchema } from '@manifoldxyz/studio-app-sdk';
 
+/**
+ * @dev A central Scehma re-used by the CLI and the Studio App
+ *      to define the fields that will be used to create the app
+ */
 export const schema = new InstanceSchema({
-  contract: f.StudioContract({
-    network: 'network',
-    specs: [StudioContractSpec.ERC721, StudioContractSpec.ERC1155],
-  }),
+  name: f.String({ isPublic: true }),
+  audience: f.AudienceBlueprint({ isPublic: true }),
 
-  erc1155MintArgs: f.Form({
-    amounts: f.Array(f.Number()),
-    // TODO: change to address when available
-    recipients: f.Array(f.String()),
-  }),
+  badgeAsset: f.Array(
+    f.Struct({
+      id: f.Number(),
+      asset: f.String(),
+    }),
+    { isPublic: true },
+  ),
 
-  /** fields that are relevant to an erc 721 mint */
-  // eslint-disable-next-line sort-keys
-  erc721MintArgs: f.Form({
-    // TODO: change to address when available
-    recipient: f.String(),
-  }),
-
-  /** initial deploy network */
-  network: f.Network([1, 5, 10, 8453]),
-  tokenAsset: f.Asset({
-    isImmutable: false,
-    isPublic: true,
-  }),
+  badgeRules: f.Array(
+    f.Struct({
+      name: f.String(),
+      id: f.Number(),
+      description: f.String(),
+      multiplier: f.Number(),
+    }),
+    { isPublic: true },
+  ),
 });
